@@ -1,0 +1,86 @@
+.wrapper {
+  --sphere-lift: -58px;
+
+  position: relative;
+  width: 100%;
+  pointer-events: none;
+}
+
+.art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  mix-blend-mode: screen;
+
+  transform:
+    translate3d(
+      var(--float-x, 0px),
+      calc(var(--sphere-lift) + var(--float-y, 0px)),
+      0
+    )
+    scale(var(--sphere-scale, 1));
+
+  will-change: transform;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.backCanvas {
+  z-index: 0;
+}
+
+.frontCanvas {
+  z-index: 2;
+}
+
+.logo {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  width: 51%;
+  height: 59%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+.rotor {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.reverse {
+  transform: rotateY(180deg);
+}
+
+.logoImage {
+  object-fit: contain;
+}
+
+@media (max-width: 1023px) {
+  .wrapper {
+    --sphere-lift: -28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art,
+  .rotor {
+    will-change: auto;
+  }
+}
