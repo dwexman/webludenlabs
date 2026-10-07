@@ -1,5 +1,6 @@
 .wrapper {
   --sphere-lift: -58px;
+  --sphere-shift-x: 0px;
 
   position: relative;
   width: 100%;
@@ -14,7 +15,7 @@
 
   transform:
     translate3d(
-      var(--float-x, 0px),
+      calc(var(--sphere-shift-x) + var(--float-x, 0px)),
       calc(var(--sphere-lift) + var(--float-y, 0px)),
       0
     )
@@ -46,6 +47,7 @@
   top: 50%;
   width: 51%;
   height: 59%;
+
   transform: translate(-50%, -50%);
   mix-blend-mode: screen;
 }
@@ -72,9 +74,24 @@
   object-fit: contain;
 }
 
+/* TABLET */
+
 @media (max-width: 1023px) {
   .wrapper {
     --sphere-lift: -28px;
+    --sphere-shift-x: 0px;
+  }
+}
+
+/* MÓVIL */
+
+@media (max-width: 767px) {
+  .wrapper {
+    /* Más negativo = más arriba. */
+    --sphere-lift: -70px;
+
+    /* Más positivo = más a la derecha. */
+    --sphere-shift-x: 20px;
   }
 }
 
