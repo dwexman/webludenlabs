@@ -1,5 +1,5 @@
 .wrapper {
-  --sphere-lift: -58px;
+  --sphere-lift: -80px;
   --sphere-shift-x: 0px;
 
   position: relative;
@@ -87,11 +87,8 @@
 
 @media (max-width: 767px) {
   .wrapper {
-    /* Más negativo = más arriba. */
-    --sphere-lift: -70px;
-
-    /* Más positivo = más a la derecha. */
-    --sphere-shift-x: 20px;
+    --sphere-lift: -20%;
+    --sphere-shift-x: 5.5%;
   }
 }
 

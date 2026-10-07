@@ -1,0 +1,132 @@
+.desktopBackground {
+  display: block;
+}
+
+.visual {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  min-width: 0;
+  margin: 20px auto 0;
+}
+
+.sphere {
+  position: relative;
+  width: 100%;
+}
+
+.desktopActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.mobileBackground,
+.mobileActions {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .visual {
+    max-width: 490px;
+  }
+
+  .desktopActions {
+    margin-top: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .visual {
+    max-width: 620px;
+    margin-top: 0;
+  }
+}
+
+/* COMPOSICIÓN MÓVIL */
+
+@media (max-width: 767px) {
+  .desktopBackground,
+  .desktopActions {
+    display: none;
+  }
+
+  .visual {
+    --mobile-gutter: 20px;
+
+    width: calc(100% + var(--mobile-gutter) * 2);
+    max-width: none;
+
+    margin:
+      48px
+      calc(var(--mobile-gutter) * -1)
+      0;
+
+    aspect-ratio: 100 / 104;
+  }
+
+  /* La plataforma queda vinculada al bloque de la esfera. */
+
+  .mobileBackground {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000000 14%,
+      #000000 80%,
+      transparent 100%
+    );
+
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000000 14%,
+      #000000 80%,
+      transparent 100%
+    );
+  }
+
+  .mobileBackgroundImage {
+    object-fit: cover;
+    object-position: right bottom;
+  }
+
+  .sphere {
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 90%;
+  }
+
+  /* Botones debajo de la escena. */
+
+  .mobileActions {
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+
+    width: 100%;
+    margin-top: -24px;
+  }
+
+  .mobileActions > button {
+    width: 100%;
+    min-height: 52px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .visual {
+    --mobile-gutter: 32px;
+  }
+}

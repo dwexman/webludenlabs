@@ -4,6 +4,7 @@ import HeroSphere from "./HeroSphere";
 import ScreenGlitch from "./ScreenGlitch";
 
 import styles from "./Hero.module.css";
+import layout from "./HeroLayout.module.css";
 
 const TITLE_LINES = [
   { text: "Creamos", tone: "metal" },
@@ -32,6 +33,34 @@ function ArrowIcon() {
   );
 }
 
+function HeroActions({
+  className,
+}: {
+  className: string;
+}) {
+  return (
+    <div className={className}>
+      <button
+        type="button"
+        disabled
+        className={`${styles.button} ${styles.primary}`}
+      >
+        <span>Comencemos un proyecto</span>
+        <ArrowIcon />
+      </button>
+
+      <button
+        type="button"
+        disabled
+        className={`${styles.button} ${styles.secondary}`}
+      >
+        <span>Ver proyectos</span>
+        <ArrowIcon />
+      </button>
+    </div>
+  );
+}
+
 export default function Hero() {
   return (
     <section
@@ -40,7 +69,7 @@ export default function Hero() {
       className="luden-hero"
     >
       <div
-        className="hero-background"
+        className={`hero-background ${layout.desktopBackground}`}
         aria-hidden="true"
       >
         <Image
@@ -116,30 +145,34 @@ export default function Hero() {
             con identidad propia.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4 sm:mt-10">
-            <button
-              type="button"
-              disabled
-              className={`${styles.button} ${styles.primary}`}
-            >
-              <span>Comencemos un proyecto</span>
-              <ArrowIcon />
-            </button>
+          <HeroActions
+            className={layout.desktopActions}
+          />
+        </div>
 
-            <button
-              type="button"
-              disabled
-              className={`${styles.button} ${styles.secondary}`}
-            >
-              <span>Ver proyectos</span>
-              <ArrowIcon />
-            </button>
+        <div className={layout.visual}>
+          <div
+            className={layout.mobileBackground}
+            aria-hidden="true"
+          >
+            <Image
+              src="/images/fondoluden.png"
+              alt=""
+              fill
+              loading="eager"
+              sizes="100vw"
+              className={layout.mobileBackgroundImage}
+            />
+          </div>
+
+          <div className={layout.sphere}>
+            <HeroSphere />
           </div>
         </div>
 
-        <div className="relative mx-auto mt-5 w-full max-w-[430px] sm:max-w-[490px] lg:mt-0 lg:max-w-[620px]">
-          <HeroSphere />
-        </div>
+        <HeroActions
+          className={layout.mobileActions}
+        />
       </div>
 
       <ScreenGlitch />
