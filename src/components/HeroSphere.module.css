@@ -1,7 +1,6 @@
 .wrapper {
   --sphere-lift: -80px;
   --sphere-shift-x: 0px;
-
   position: relative;
   width: 100%;
   pointer-events: none;
@@ -12,7 +11,6 @@
   width: 100%;
   aspect-ratio: 1;
   mix-blend-mode: screen;
-
   transform:
     translate3d(
       calc(var(--sphere-shift-x) + var(--float-x, 0px)),
@@ -20,26 +18,12 @@
       0
     )
     scale(var(--sphere-scale, 1));
-
   will-change: transform;
 }
 
-.canvas {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.backCanvas {
-  z-index: 0;
-}
-
-.frontCanvas {
-  z-index: 2;
-}
-
+.canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.backCanvas { z-index: 0; }
+.frontCanvas { z-index: 2; }
 .logo {
   position: absolute;
   z-index: 1;
@@ -47,54 +31,27 @@
   top: 50%;
   width: 51%;
   height: 59%;
-
   transform: translate(-50%, -50%);
   mix-blend-mode: screen;
 }
+.rotor { position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform; }
+.face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.reverse { transform: rotateY(180deg); }
+.logoImage { object-fit: contain; }
 
-.rotor {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.reverse {
-  transform: rotateY(180deg);
-}
-
-.logoImage {
-  object-fit: contain;
-}
-
-/* TABLET */
+/* El mismo PNG pasa a grafito. Multiply integra su fondo invertido con el nácar. */
+.wrapper[data-theme="editorial"] { --sphere-lift: -8px; --sphere-shift-x: 0px; }
+.wrapper[data-theme="editorial"] .art { mix-blend-mode: normal; }
+.wrapper[data-theme="editorial"] .logo { mix-blend-mode: multiply; }
+.wrapper[data-theme="editorial"] .logoImage { filter: grayscale(1) invert(1); }
 
 @media (max-width: 1023px) {
-  .wrapper {
-    --sphere-lift: -28px;
-    --sphere-shift-x: 0px;
-  }
+  .wrapper { --sphere-lift: -28px; --sphere-shift-x: 0px; }
 }
-
-/* MÓVIL */
-
 @media (max-width: 767px) {
-  .wrapper {
-    --sphere-lift: -20%;
-    --sphere-shift-x: 5.5%;
-  }
+  .wrapper { --sphere-lift: -20%; --sphere-shift-x: 5.5%; }
+  .wrapper[data-theme="editorial"] { --sphere-lift: -4%; --sphere-shift-x: 0px; }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .art,
-  .rotor {
-    will-change: auto;
-  }
+  .art, .rotor { will-change: auto; }
 }

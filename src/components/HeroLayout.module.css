@@ -1,8 +1,65 @@
-.desktopBackground {
-  display: block;
+
+/* =========================================================
+   CYBER LAYOUT
+========================================================= */
+
+.cyberShell,
+.editorialShell {
+  position: relative;
+  min-height: 100svh;
 }
 
-.visual {
+.cyberBackground {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+}
+
+.cyberBackgroundImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.cyberShade {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(1, 3, 10, 0.92) 0%, rgba(2, 5, 15, 0.66) 40%, rgba(2, 4, 13, 0.12) 73%),
+    radial-gradient(circle at 76% 45%, rgba(36, 87, 184, 0.08), transparent 37%);
+}
+
+.cyberBottomFade {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -2;
+  height: 26%;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(1, 2, 8, 0.94));
+}
+
+.cyberContainer {
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  max-width: 1440px;
+  margin: 0 auto;
+  align-items: center;
+  gap: 20px;
+  padding: 128px 20px 80px;
+}
+
+.cyberCopy {
+  position: relative;
+  z-index: 4;
+  min-width: 0;
+  max-width: 700px;
+}
+
+.cyberVisual {
   position: relative;
   width: 100%;
   max-width: 430px;
@@ -10,123 +67,425 @@
   margin: 20px auto 0;
 }
 
-.sphere {
+.cyberSphere {
   position: relative;
   width: 100%;
 }
 
-.desktopActions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  margin-top: 32px;
-}
-
-.mobileBackground,
-.mobileActions {
+.cyberMobileBackground,
+.cyberMobileActions {
   display: none;
 }
 
+.cyberDesktopActions {
+  margin-top: 32px;
+}
+
+/* =========================================================
+   EDITORIAL LAYOUT
+========================================================= */
+
+.editorialShell {
+  background:
+    linear-gradient(90deg, rgba(98, 86, 69, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(98, 86, 69, 0.028) 1px, transparent 1px),
+    #f5f1e9;
+  background-size: 72px 72px;
+}
+
+.editorialPaperNoise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background:
+    radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.68), transparent 26%),
+    radial-gradient(circle at 80% 78%, rgba(129, 115, 139, 0.08), transparent 27%);
+}
+
+.editorialContainer {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 100svh;
+  max-width: 1500px;
+  margin: 0 auto;
+  align-items: center;
+  grid-template-columns: minmax(0, 0.92fr) minmax(430px, 1.08fr);
+  gap: clamp(42px, 6vw, 110px);
+  padding: 150px 54px 110px;
+}
+
+.editorialCopy {
+  min-width: 0;
+  max-width: 760px;
+}
+
+.editorialActions {
+  margin-top: 38px;
+}
+
+.editorialVisual {
+  position: relative;
+  min-width: 0;
+}
+
+.editorialFrame {
+  position: relative;
+  aspect-ratio: 0.92;
+  overflow: hidden;
+  border: 1px solid rgba(65, 58, 52, 0.3);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.72), rgba(231, 224, 213, 0.8)),
+    #ede6dc;
+  box-shadow:
+    24px 28px 60px rgba(65, 55, 46, 0.08),
+    inset 0 0 0 12px rgba(255, 255, 255, 0.13);
+}
+
+.editorialFrame::before {
+  content: "";
+  position: absolute;
+  inset: 12% 10% 16% 14%;
+  border: 1px solid rgba(107, 96, 117, 0.18);
+  transform: rotate(-7deg);
+}
+
+.editorialFrame::after {
+  content: "";
+  position: absolute;
+  width: 42%;
+  aspect-ratio: 1;
+  right: -8%;
+  bottom: -6%;
+  border-radius: 50%;
+  border: 1px solid rgba(91, 82, 99, 0.18);
+}
+
+.editorialFrameTop,
+.editorialCaption {
+  position: absolute;
+  z-index: 4;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #6f6862;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.editorialFrameTop {
+  top: 22px;
+}
+
+.editorialCaption {
+  bottom: 22px;
+}
+
+.editorialAxisX,
+.editorialAxisY {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(81, 73, 68, 0.15);
+}
+
+.editorialAxisX {
+  top: 50%;
+  left: 7%;
+  width: 86%;
+  height: 1px;
+}
+
+.editorialAxisY {
+  top: 7%;
+  left: 50%;
+  width: 1px;
+  height: 86%;
+}
+
+.editorialSphere {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 84%;
+  transform: translate(-50%, -50%);
+}
+
+.editorialSideLabel {
+  position: absolute;
+  top: 50%;
+  right: -42px;
+  color: #817971;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  writing-mode: vertical-rl;
+  transform: translateY(-50%);
+}
+
+/* =========================================================
+   THEME SWITCH
+========================================================= */
+
+.themeSwitch {
+  position: absolute;
+  z-index: 30;
+  right: 48px;
+  bottom: 34px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  color: #c0cce4;
+  font-size: 12px;
+}
+
+.switchLabel {
+  margin-right: 8px;
+}
+
+.themeSwitch button {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid #7082b560;
+  border-radius: 999px;
+  background: #080e20;
+  color: #cfdaee;
+  font: inherit;
+  cursor: pointer;
+}
+
+.themeSwitch button[aria-pressed="true"] {
+  border-color: #8aaaff;
+  color: #fff;
+  background: #1b2448;
+}
+
+.themeSwitch button:hover {
+  border-color: #b5caff;
+}
+
+.themeSwitch button:focus-visible {
+  outline: 2px solid #85cfff;
+  outline-offset: 4px;
+}
+
+:global(.luden-hero[data-theme="editorial"]) .themeSwitch,
+[data-theme="editorial"] .themeSwitch {
+  color: #665f59;
+}
+
+:global(.luden-hero[data-theme="editorial"]) .themeSwitch button,
+[data-theme="editorial"] .themeSwitch button {
+  border-color: #b9b1a9;
+  border-radius: 0;
+  background: rgba(245, 241, 233, 0.74);
+  color: #504a45;
+}
+
+:global(.luden-hero[data-theme="editorial"]) .themeSwitch button[aria-pressed="true"],
+[data-theme="editorial"] .themeSwitch button[aria-pressed="true"] {
+  border-color: #5e5751;
+  background: #e6dfd6;
+  color: #2f2b28;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
 @media (min-width: 640px) {
-  .visual {
+  .cyberContainer {
+    padding: 144px 32px 88px;
+  }
+
+  .cyberVisual {
     max-width: 490px;
   }
 
-  .desktopActions {
+  .cyberDesktopActions {
     margin-top: 40px;
   }
 }
 
 @media (min-width: 1024px) {
-  .visual {
+  .cyberContainer {
+    grid-template-columns: 1.08fr 1fr;
+    gap: 0;
+    padding: 160px 48px 112px;
+  }
+
+  .cyberVisual {
     max-width: 620px;
     margin-top: 0;
   }
 }
 
-/* COMPOSICIÓN MÓVIL */
+@media (max-width: 1180px) {
+  .editorialContainer {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+    gap: 42px;
+    padding-right: 44px;
+    padding-left: 44px;
+  }
+
+  .editorialSideLabel {
+    right: -30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .editorialContainer {
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 50px;
+    padding: 126px 32px 108px;
+  }
+
+  .editorialCopy {
+    max-width: 720px;
+  }
+
+  .editorialVisual {
+    width: min(100%, 680px);
+  }
+
+  .editorialFrame {
+    aspect-ratio: 1.08;
+  }
+
+  .editorialSideLabel {
+    display: none;
+  }
+}
 
 @media (max-width: 767px) {
-  .desktopBackground,
-  .desktopActions {
+  .cyberBackground,
+  .cyberDesktopActions {
     display: none;
   }
 
-  .visual {
-    --mobile-gutter: 20px;
+  .cyberShell {
+    background: #020205;
+  }
 
+  .cyberContainer {
+    display: block;
+    min-height: 100svh;
+    padding: 118px 20px 42px;
+  }
+
+  .cyberVisual {
+    --mobile-gutter: 20px;
     width: calc(100% + var(--mobile-gutter) * 2);
     max-width: none;
-
-    margin:
-      48px
-      calc(var(--mobile-gutter) * -1)
-      0;
-
+    margin: 48px calc(var(--mobile-gutter) * -1) 0;
     aspect-ratio: 100 / 104;
   }
 
-  /* La plataforma queda vinculada al bloque de la esfera. */
-
-  .mobileBackground {
-    display: block;
+  .cyberMobileBackground {
     position: absolute;
     inset: 0;
+    display: block;
     pointer-events: none;
-
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      #000000 14%,
-      #000000 80%,
-      transparent 100%
-    );
-
-    mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      #000000 14%,
-      #000000 80%,
-      transparent 100%
-    );
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 80%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 80%, transparent);
   }
 
-  .mobileBackgroundImage {
+  .cyberMobileBackgroundImage {
     object-fit: cover;
     object-position: right bottom;
   }
 
-  .sphere {
+  .cyberSphere {
     position: absolute;
     top: 0;
     left: 5%;
     width: 90%;
   }
 
-  /* Botones debajo de la escena. */
-
-  .mobileActions {
+  .cyberMobileActions {
     position: relative;
-    z-index: 10;
-
+    z-index: 5;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-
     width: 100%;
     margin-top: -24px;
   }
 
-  .mobileActions > button {
+  .cyberMobileActions > button {
     width: 100%;
     min-height: 52px;
+  }
+
+  .editorialContainer {
+    min-height: 100svh;
+    gap: 36px;
+    padding: 112px 20px 112px;
+  }
+
+  .editorialActions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .editorialActions > button {
+    width: 100%;
+  }
+
+  .editorialVisual {
+    width: 100%;
+  }
+
+  .editorialFrame {
+    aspect-ratio: 0.96;
+  }
+
+  .editorialFrameTop,
+  .editorialCaption {
+    left: 16px;
+    right: 16px;
+    font-size: 8px;
+  }
+
+  .editorialFrameTop {
+    top: 16px;
+  }
+
+  .editorialCaption {
+    bottom: 16px;
+  }
+
+  .editorialSphere {
+    width: 92%;
+  }
+
+  .themeSwitch {
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
+    gap: 6px;
+  }
+
+  .switchLabel {
+    width: 100%;
+    margin: 0 0 2px;
+    text-align: right;
   }
 }
 
 @media (min-width: 640px) and (max-width: 767px) {
-  .visual {
+  .cyberVisual {
     --mobile-gutter: 32px;
   }
 }

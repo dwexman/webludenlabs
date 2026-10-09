@@ -1,27 +1,20 @@
+
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 import HeroSphere from "./HeroSphere";
-import ScreenGlitch from "./ScreenGlitch";
-
+import ScreenGlitch, {
+  type HeroTheme,
+  type ScreenGlitchHandle,
+} from "./ScreenGlitch";
 import styles from "./Hero.module.css";
 import layout from "./HeroLayout.module.css";
 
-const TITLE_LINES = [
-  { text: "Creamos", tone: "metal" },
-  { text: "experiencias", tone: "metal" },
-  { text: "digitales que", tone: "color" },
-  { text: "destacan.", tone: "color" },
-] as const;
-
 function ArrowIcon() {
   return (
-    <svg
-      width="19"
-      height="19"
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-    >
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M5 12h14m-6-6 6 6-6 6"
         stroke="currentColor"
@@ -33,27 +26,15 @@ function ArrowIcon() {
   );
 }
 
-function HeroActions({
-  className,
-}: {
-  className: string;
-}) {
+function HeroActions({ className = "" }: { className?: string }) {
   return (
-    <div className={className}>
-      <button
-        type="button"
-        disabled
-        className={`${styles.button} ${styles.primary}`}
-      >
+    <div className={`${styles.actions} ${className}`}>
+      <button type="button" disabled className={`${styles.button} ${styles.primary}`}>
         <span>Comencemos un proyecto</span>
         <ArrowIcon />
       </button>
 
-      <button
-        type="button"
-        disabled
-        className={`${styles.button} ${styles.secondary}`}
-      >
+      <button type="button" disabled className={`${styles.button} ${styles.secondary}`}>
         <span>Ver proyectos</span>
         <ArrowIcon />
       </button>
@@ -61,121 +42,205 @@ function HeroActions({
   );
 }
 
-export default function Hero() {
+function ThemeSwitch({
+  theme,
+  onChange,
+}: {
+  theme: HeroTheme;
+  onChange: (theme: HeroTheme) => void;
+}) {
   return (
-    <section
-      id="inicio"
-      aria-labelledby="hero-title"
-      className="luden-hero"
-    >
-      <div
-        className={`hero-background ${layout.desktopBackground}`}
-        aria-hidden="true"
-      >
+    <div className={layout.themeSwitch} role="group" aria-label="Estilo visual del hero">
+      <span className={layout.switchLabel}>Explora nuestros estilos</span>
+
+      {(["cyber", "editorial"] as const).map((value) => (
+        <button
+          key={value}
+          type="button"
+          aria-pressed={theme === value}
+          onClick={() => onChange(value)}
+        >
+          {value === "cyber" ? "Cyber" : "Editorial"}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function CyberHero() {
+  return (
+    <div className={layout.cyberShell}>
+      <div className={layout.cyberBackground} aria-hidden="true">
         <Image
           src="/images/fondoluden.png"
           alt=""
           fill
-          preload
+          priority
           sizes="100vw"
-          className="hero-background-image"
+          className={layout.cyberBackgroundImage}
         />
       </div>
 
-      <div
-        className="hero-shade"
-        aria-hidden="true"
-      />
+      <div className={layout.cyberShade} aria-hidden="true" />
+      <div className={layout.cyberBottomFade} aria-hidden="true" />
 
-      <div
-        className="hero-bottom-fade"
-        aria-hidden="true"
-      />
-
-      <div className="relative mx-auto grid min-h-svh max-w-[1440px] items-center gap-5 px-5 pb-12 pt-32 sm:px-8 sm:pt-36 lg:grid-cols-[1.08fr_1fr] lg:gap-0 lg:px-12 lg:pb-28 lg:pt-40">
-        <div className="hero-enter relative z-10 max-w-[700px]">
-          <p className="mb-7 flex flex-wrap items-center gap-x-3 gap-y-2 font-display text-xs font-medium tracking-[0.18em] text-[#a8c9ff] sm:mb-8 sm:gap-x-4">
+      <div className={layout.cyberContainer}>
+        <div className={`${layout.cyberCopy} hero-enter`}>
+          <p className={`${styles.eyebrow} font-display`}>
             <span>IDEAS</span>
-
-            <span
-              aria-hidden="true"
-              className="text-[#7865ad]"
-            >
-              ×
-            </span>
-
+            <span aria-hidden="true">×</span>
             <span>TECNOLOGÍA</span>
-
-            <span
-              aria-hidden="true"
-              className="text-[#7865ad]"
-            >
-              ×
-            </span>
-
+            <span aria-hidden="true">×</span>
             <span>IMPACTO</span>
           </p>
 
           <h1
             id="hero-title"
             aria-label="Creamos experiencias digitales que destacan."
-            className={`${styles.title} font-display text-[clamp(1.8rem,7.1vw,3.6rem)] font-extrabold leading-[1.17] tracking-[-0.045em] uppercase lg:text-[clamp(2.6rem,4.15vw,4.6rem)]`}
+            className={`${styles.cyberTitle} font-display`}
           >
-            {TITLE_LINES.map(({ text, tone }) => (
-              <span
-                key={text}
-                className={`${styles.line} ${styles[tone]}`}
-              >
-                <span className={styles.fill}>
-                  {text}
-                </span>
+            <span className={`${styles.cyberLine} ${styles.metal}`}>
+              <span className={styles.cyberFill}>Creamos</span>
+              <span aria-hidden="true" className={styles.cyberOutline} data-text="Creamos" />
+            </span>
 
-                <span
-                  aria-hidden="true"
-                  className={styles.outline}
-                  data-text={text}
-                />
-              </span>
-            ))}
+            <span className={`${styles.cyberLine} ${styles.metal}`}>
+              <span className={styles.cyberFill}>experiencias</span>
+              <span aria-hidden="true" className={styles.cyberOutline} data-text="experiencias" />
+            </span>
+
+            <span className={`${styles.cyberLine} ${styles.color}`}>
+              <span className={styles.cyberFill}>digitales que</span>
+              <span aria-hidden="true" className={styles.cyberOutline} data-text="digitales que" />
+            </span>
+
+            <span className={`${styles.cyberLine} ${styles.color}`}>
+              <span className={styles.cyberFill}>destacan.</span>
+              <span aria-hidden="true" className={styles.cyberOutline} data-text="destacan." />
+            </span>
           </h1>
 
-          <p className="mt-7 max-w-[470px] text-base leading-[1.85] text-[#c0cce4] sm:mt-8 sm:text-lg">
-            En Luden Labs combinamos diseño, desarrollo y estrategia
-            para transformar tus ideas en experiencias digitales
-            con identidad propia.
+          <p className={styles.cyberDescription}>
+            En Luden Labs combinamos diseño, desarrollo y estrategia para transformar tus ideas
+            en experiencias digitales con identidad propia.
           </p>
 
-          <HeroActions
-            className={layout.desktopActions}
-          />
+          <HeroActions className={layout.cyberDesktopActions} />
         </div>
 
-        <div className={layout.visual}>
-          <div
-            className={layout.mobileBackground}
-            aria-hidden="true"
-          >
+        <div className={layout.cyberVisual}>
+          <div className={layout.cyberMobileBackground} aria-hidden="true">
             <Image
               src="/images/fondoluden.png"
               alt=""
               fill
-              loading="eager"
               sizes="100vw"
-              className={layout.mobileBackgroundImage}
+              className={layout.cyberMobileBackgroundImage}
             />
           </div>
 
-          <div className={layout.sphere}>
-            <HeroSphere />
+          <div className={layout.cyberSphere}>
+            <HeroSphere theme="cyber" />
           </div>
         </div>
 
-        <HeroActions
-          className={layout.mobileActions}
-        />
+        <HeroActions className={layout.cyberMobileActions} />
       </div>
+    </div>
+  );
+}
 
-      <ScreenGlitch />
+function EditorialHero() {
+  return (
+    <div className={layout.editorialShell}>
+      <div className={layout.editorialPaperNoise} aria-hidden="true" />
+
+      <div className={layout.editorialContainer}>
+        <div className={layout.editorialCopy}>
+          <div className={styles.editorialKicker}>
+            <span>LUDEN LABS</span>
+            <span className={styles.editorialRule} aria-hidden="true" />
+            <span>ESTUDIO DIGITAL</span>
+          </div>
+
+          <h1
+            id="hero-title"
+            aria-label="Creamos experiencias digitales que destacan."
+            className={styles.editorialTitle}
+          >
+            <span>Creamos</span>
+            <span>experiencias</span>
+            <span className={styles.editorialAccent}>digitales</span>
+            <span>que destacan.</span>
+          </h1>
+
+          <div className={styles.editorialBodyRow}>
+            <p className={styles.editorialIndex}>01</p>
+            <p className={styles.editorialDescription}>
+              Diseño, desarrollo y estrategia para convertir ideas en productos digitales claros,
+              memorables y con una identidad propia.
+            </p>
+          </div>
+
+          <HeroActions className={layout.editorialActions} />
+        </div>
+
+        <div className={layout.editorialVisual} aria-label="Identidad visual Luden Labs">
+          <div className={layout.editorialFrame} aria-hidden="true">
+            <div className={layout.editorialFrameTop}>
+              <span>DESIGN / CODE / STRATEGY</span>
+              <span>2026</span>
+            </div>
+
+            <div className={layout.editorialAxisX} />
+            <div className={layout.editorialAxisY} />
+
+            <div className={layout.editorialSphere}>
+              <HeroSphere theme="editorial" />
+            </div>
+
+            <div className={layout.editorialCaption}>
+              <span>DIGITAL EXPERIENCES</span>
+              <span>SANTIAGO — CHILE</span>
+            </div>
+          </div>
+
+          <div className={layout.editorialSideLabel} aria-hidden="true">
+            LUDEN / LABS
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Hero() {
+  const [theme, setTheme] = useState<HeroTheme>("cyber");
+  const glitchRef = useRef<ScreenGlitchHandle>(null);
+
+  // Mantiene el navbar sincronizado con el diseño mostrado por el hero.
+  useEffect(() => {
+    document.documentElement.dataset.ludenTheme = theme;
+    window.dispatchEvent(new CustomEvent("luden:theme-change", { detail: theme }));
+  }, [theme]);
+
+  const changeTheme = (nextTheme: HeroTheme) => {
+    if (nextTheme === theme) return;
+    glitchRef.current?.transitionTo(nextTheme);
+  };
+
+  return (
+    <section
+      id="inicio"
+      aria-labelledby="hero-title"
+      className={styles.hero}
+      data-theme={theme}
+    >
+      {theme === "cyber" ? <CyberHero /> : <EditorialHero />}
+
+      <ThemeSwitch theme={theme} onChange={changeTheme} />
+
+      <ScreenGlitch ref={glitchRef} theme={theme} onThemeChange={setTheme} />
     </section>
   );
 }
