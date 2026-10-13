@@ -1,7 +1,10 @@
 
 /* =========================================================
-   CYBER LAYOUT
+   LUDEN LABS - HERO LAYOUT
+   Cyber + Editorial + Selector de estilos
 ========================================================= */
+
+/* CYBER LAYOUT */
 
 .cyberShell,
 .editorialShell {
@@ -26,8 +29,17 @@
   z-index: -3;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(1, 3, 10, 0.92) 0%, rgba(2, 5, 15, 0.66) 40%, rgba(2, 4, 13, 0.12) 73%),
-    radial-gradient(circle at 76% 45%, rgba(36, 87, 184, 0.08), transparent 37%);
+    linear-gradient(
+      90deg,
+      rgba(1, 3, 10, 0.92) 0%,
+      rgba(2, 5, 15, 0.66) 40%,
+      rgba(2, 4, 13, 0.12) 73%
+    ),
+    radial-gradient(
+      circle at 76% 45%,
+      rgba(36, 87, 184, 0.08),
+      transparent 37%
+    );
 }
 
 .cyberBottomFade {
@@ -38,7 +50,11 @@
   z-index: -2;
   height: 26%;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent, rgba(1, 2, 8, 0.94));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(1, 2, 8, 0.94)
+  );
 }
 
 .cyberContainer {
@@ -87,8 +103,15 @@
 
 .editorialShell {
   background:
-    linear-gradient(90deg, rgba(98, 86, 69, 0.035) 1px, transparent 1px),
-    linear-gradient(rgba(98, 86, 69, 0.028) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      rgba(98, 86, 69, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      rgba(98, 86, 69, 0.028) 1px,
+      transparent 1px
+    ),
     #f5f1e9;
   background-size: 72px 72px;
 }
@@ -99,8 +122,16 @@
   pointer-events: none;
   opacity: 0.42;
   background:
-    radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.68), transparent 26%),
-    radial-gradient(circle at 80% 78%, rgba(129, 115, 139, 0.08), transparent 27%);
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(255, 255, 255, 0.68),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 80% 78%,
+      rgba(129, 115, 139, 0.08),
+      transparent 27%
+    );
 }
 
 .editorialContainer {
@@ -111,7 +142,9 @@
   max-width: 1500px;
   margin: 0 auto;
   align-items: center;
-  grid-template-columns: minmax(0, 0.92fr) minmax(430px, 1.08fr);
+  grid-template-columns:
+    minmax(0, 0.92fr)
+    minmax(430px, 1.08fr);
   gap: clamp(42px, 6vw, 110px);
   padding: 150px 54px 110px;
 }
@@ -136,7 +169,11 @@
   overflow: hidden;
   border: 1px solid rgba(65, 58, 52, 0.3);
   background:
-    linear-gradient(150deg, rgba(255, 255, 255, 0.72), rgba(231, 224, 213, 0.8)),
+    linear-gradient(
+      150deg,
+      rgba(255, 255, 255, 0.72),
+      rgba(231, 224, 213, 0.8)
+    ),
     #ede6dc;
   box-shadow:
     24px 28px 60px rgba(65, 55, 46, 0.08),
@@ -203,7 +240,7 @@
 .editorialAxisY {
   top: 7%;
   left: 50%;
-  width: 1px;
+  width: 1%;
   height: 86%;
 }
 
@@ -229,7 +266,7 @@
 }
 
 /* =========================================================
-   THEME SWITCH
+   THEME SWITCH ORIGINAL
 ========================================================= */
 
 .themeSwitch {
@@ -289,7 +326,8 @@
   color: #504a45;
 }
 
-:global(.luden-hero[data-theme="editorial"]) .themeSwitch button[aria-pressed="true"],
+:global(.luden-hero[data-theme="editorial"])
+  .themeSwitch button[aria-pressed="true"],
 [data-theme="editorial"] .themeSwitch button[aria-pressed="true"] {
   border-color: #5e5751;
   background: #e6dfd6;
@@ -297,7 +335,7 @@
 }
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE TABLET / DESKTOP
 ========================================================= */
 
 @media (min-width: 640px) {
@@ -329,7 +367,9 @@
 
 @media (max-width: 1180px) {
   .editorialContainer {
-    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(360px, 0.92fr);
     gap: 42px;
     padding-right: 44px;
     padding-left: 44px;
@@ -365,6 +405,10 @@
   }
 }
 
+/* =========================================================
+   RESPONSIVE MOBILE
+========================================================= */
+
 @media (max-width: 767px) {
   .cyberBackground,
   .cyberDesktopActions {
@@ -394,8 +438,20 @@
     inset: 0;
     display: block;
     pointer-events: none;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 80%, transparent);
-    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 80%, transparent);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 14%,
+      #000 80%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 14%,
+      #000 80%,
+      transparent
+    );
   }
 
   .cyberMobileBackgroundImage {
@@ -470,16 +526,11 @@
     width: 92%;
   }
 
-  /* Selector debajo de los botones en mobile */
   .themeSwitch {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    width: calc(100% - 40px);
-    margin: 26px 20px 36px;
-    justify-content: flex-end;
-    gap: 8px;
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
+    gap: 6px;
   }
 
   .switchLabel {
@@ -492,5 +543,59 @@
 @media (min-width: 640px) and (max-width: 767px) {
   .cyberVisual {
     --mobile-gutter: 32px;
+  }
+}
+
+/* =========================================================
+   SELECTOR MÁS PEQUEÑO EN MOBILE
+   Mantiene ThemeSwitch de Hero.tsx
+========================================================= */
+
+@media (max-width: 520px) {
+  .themeSwitch {
+    position: fixed;
+    z-index: 100;
+    left: auto;
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+    width: max-content;
+    max-width: calc(100% - 28px);
+    min-height: 0;
+    padding: 5px;
+    margin: 0;
+    flex-wrap: nowrap;
+    gap: 4px;
+    border: 1px solid #668ee666;
+    border-radius: 999px;
+    background: rgba(5, 10, 25, 0.92);
+    box-shadow:
+      0 8px 25px #0007,
+      0 0 15px #3667ff25;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  .switchLabel {
+    display: none;
+  }
+
+  .themeSwitch button {
+    min-height: 34px;
+    height: 34px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  [data-theme="editorial"] .themeSwitch {
+    border-color: rgba(120, 108, 95, 0.35);
+    background: rgba(245, 241, 233, 0.96);
+    box-shadow: 0 8px 25px #30251d20;
+  }
+
+  [data-theme="editorial"] .themeSwitch button {
+    border-radius: 999px;
   }
 }

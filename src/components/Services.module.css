@@ -1,3 +1,9 @@
+
+/* =========================================================
+   LUDEN LABS - SERVICES
+   Cyber metálico + Editorial
+========================================================= */
+
 .section {
   --background: #050609;
   --text: #d8e5fa;
@@ -42,7 +48,7 @@
   margin: 26px 0 44px;
 }
 
-/* Título: azul eléctrico con reflejos metálicos. */
+/* Título metálico */
 
 .heading {
   margin: 0;
@@ -67,7 +73,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
   filter: drop-shadow(0 0 14px #167cff45);
   animation: headingMetal 7s ease-in-out infinite;
 }
@@ -80,7 +85,9 @@
   line-height: 1.7;
 }
 
-/* CYBER */
+/* =========================================================
+   CYBER GRID
+========================================================= */
 
 .grid {
   display: grid;
@@ -132,7 +139,7 @@
   outline-offset: 5px;
 }
 
-/* Halo exterior independiente del giro. */
+/* Halo exterior */
 
 .card::before {
   content: "";
@@ -158,23 +165,25 @@
   opacity: 0.85;
 }
 
+/* Giro de tarjeta */
+
 .cardInner {
   position: relative;
   z-index: 1;
   display: grid;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.24, 0.7, 0.3, 1);
+  transition:
+    transform 0.7s cubic-bezier(0.24, 0.7, 0.3, 1);
 }
 
 .card[data-flipped="true"] .cardInner {
   transform: rotateY(180deg);
 }
 
-/*
-  Recorte real de la esquina superior derecha.
-  El fondo de esta capa forma el borde luminoso.
-*/
+/* =========================================================
+   CARAS CON ESQUINA RECORTADA
+========================================================= */
 
 .face {
   position: relative;
@@ -210,7 +219,7 @@
   box-shadow: none;
 }
 
-/* Superficie metálica azul oscuro. */
+/* Superficie metálica azul */
 
 .front {
   --surface:
@@ -236,10 +245,7 @@
     );
 }
 
-/*
-  Interior recortado.
-  Deja un borde de 1 px que también sigue la diagonal.
-*/
+/* Interior y borde diagonal */
 
 .face::before {
   content: "";
@@ -259,7 +265,7 @@
   pointer-events: none;
 }
 
-/* Reflejo que recorre el borde superior. */
+/* Reflejo superior */
 
 .face::after {
   content: "";
@@ -284,7 +290,7 @@
   pointer-events: none;
 }
 
-/* Haz de luz que cruza la superficie. */
+/* Haz de luz */
 
 .beam {
   position: absolute;
@@ -310,7 +316,9 @@
   pointer-events: none;
 }
 
-/* Íconos grandes con halo azul. */
+/* =========================================================
+   ICONOS CYBER
+========================================================= */
 
 .icon {
   position: relative;
@@ -348,8 +356,6 @@
   animation: iconGlow 5s ease-in-out infinite var(--delay);
 }
 
-/* Colores del degradado de los íconos SVG. */
-
 .icon stop:nth-child(1) {
   stop-color: #087aff;
 }
@@ -366,7 +372,9 @@
   stop-color: #765fff;
 }
 
-/* Brillo secuencial de los títulos. */
+/* =========================================================
+   TITULOS Y TEXTOS
+========================================================= */
 
 .cardTitle {
   position: relative;
@@ -393,7 +401,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
   animation: titleShine 10s linear infinite var(--delay);
 }
 
@@ -432,7 +439,7 @@
   flex-shrink: 0;
 }
 
-/* Reverso de las tarjetas. */
+/* Reverso */
 
 .back {
   --surface:
@@ -488,7 +495,9 @@
   letter-spacing: 0.04em;
 }
 
-/* ANIMACIONES */
+/* =========================================================
+   ANIMACIONES
+========================================================= */
 
 @keyframes headingMetal {
   0%, 100% {
@@ -560,7 +569,9 @@
   }
 }
 
-/* RESPONSIVE CYBER */
+/* =========================================================
+   RESPONSIVE CYBER
+========================================================= */
 
 @media (max-width: 1180px) {
   .grid {
@@ -656,7 +667,195 @@
   }
 }
 
-/* EDITORIAL */
+/* =========================================================
+   TARJETAS CYBER ALTERNADAS
+   1, 3, 5: AZUL
+   2, 4: MORADO
+========================================================= */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even)::before {
+  background: linear-gradient(
+    120deg,
+    #955cff80,
+    #6335d34d 58%,
+    #bc72ff58
+  );
+  opacity: 0.62;
+}
+
+/* Bordes morados */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .face {
+  background: linear-gradient(
+    115deg,
+    #bf79ff,
+    #8c46f4 26%,
+    #512991 48%,
+    #7650eb 76%,
+    #c68bff
+  );
+}
+
+/* Fondo morado oscuro */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .front {
+  --surface:
+    linear-gradient(
+      112deg,
+      transparent 6%,
+      #a871ff12 25%,
+      #e0b8ff28 27%,
+      #8549dd10 30%,
+      transparent 44%
+    ),
+    radial-gradient(
+      ellipse at 0 0,
+      #5524a26b,
+      transparent 62%
+    ),
+    linear-gradient(
+      145deg,
+      #1b1034,
+      #130d29 40%,
+      #0b0a1b 70%,
+      #1c112f
+    );
+}
+
+/* Reverso morado */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .back {
+  --surface:
+    radial-gradient(
+      ellipse at 100% 0,
+      #6932bc69,
+      transparent 66%
+    ),
+    linear-gradient(
+      140deg,
+      #200e3b,
+      #100d28 65%,
+      #1b1030
+    );
+}
+
+/* Reflejo superior morado */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .face::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #9b62ff,
+    #f0d4ff,
+    #ae72ff,
+    transparent
+  );
+}
+
+/* Haz de luz morado */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .beam {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #9964ff15 25%,
+    #b46bff39 46%,
+    #ebbdff99 50%,
+    #7d50e02b 58%,
+    transparent
+  );
+}
+
+/* Halo morado */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .icon::before {
+  background: radial-gradient(
+    ellipse,
+    #9951ffc2,
+    #6138bd75 38%,
+    #9f52ef24 56%,
+    transparent 72%
+  );
+}
+
+/* Icono luminoso morado */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .icon svg {
+  filter: drop-shadow(0 0 12px #a464ffc0);
+  animation-name: iconGlowPurple;
+}
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .icon stop:nth-child(1) {
+  stop-color: #9a59ff;
+}
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .icon stop:nth-child(2) {
+  stop-color: #f2d9ff;
+}
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .icon stop:nth-child(3) {
+  stop-color: #af7aff;
+}
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .icon stop:nth-child(4) {
+  stop-color: #6544ef;
+}
+
+/* Título metálico morado */
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .cardTitle {
+  color: #d1b7ff;
+  background: linear-gradient(
+    105deg,
+    #d1b7ff 0%,
+    #a783ef 43%,
+    #fff0ff 50%,
+    #ab79f0 57%,
+    #d1b7ff 100%
+  );
+
+  background-size: 300% 100%;
+  background-position: 100% 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .backTitle,
+:global(html:not([data-luden-theme="editorial"]))
+.card:nth-child(even) .action {
+  color: #c4a3ff;
+}
+
+@keyframes iconGlowPurple {
+  0%, 100% {
+    filter: drop-shadow(0 0 9px #9b59ff99);
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 16px #c48afff2)
+      drop-shadow(0 0 28px #713dff99);
+  }
+}
+
+/* =========================================================
+   EDITORIAL
+========================================================= */
 
 :global(html[data-luden-theme="editorial"]) .section {
   --background: #f2f0e9;
@@ -695,8 +894,7 @@
 }
 
 :global(html[data-luden-theme="editorial"])
-  .card[data-flipped="true"]
-  .cardInner {
+.card[data-flipped="true"] .cardInner {
   transform: rotateX(180deg);
 }
 
@@ -773,6 +971,8 @@
   height: 22px;
 }
 
+/* Editorial mobile */
+
 @media (max-width: 680px) {
   :global(html[data-luden-theme="editorial"]) .card .face {
     grid-template-columns: minmax(0, 1fr) 22px;
@@ -801,7 +1001,9 @@
   }
 }
 
-/* Preferencia de movimiento reducido. */
+/* =========================================================
+   MOVIMIENTO REDUCIDO
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .section *,
