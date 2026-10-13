@@ -470,11 +470,16 @@
     width: 92%;
   }
 
+  /* Selector debajo de los botones en mobile */
   .themeSwitch {
-    left: 20px;
-    right: 20px;
-    bottom: 22px;
-    gap: 6px;
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: calc(100% - 40px);
+    margin: 26px 20px 36px;
+    justify-content: flex-end;
+    gap: 8px;
   }
 
   .switchLabel {

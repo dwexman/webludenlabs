@@ -34,11 +34,13 @@ type Palette = {
 // CONFIGURACIÓN DE TIEMPOS
 // ========================================
 
-const FIRST_AUTO_DELAY_MS = 3500;
-const MIN_AUTO_DELAY_MS = 15000;
-const MAX_AUTO_DELAY_MS = 20000;
-const BURST_DURATION_MS = 900;
-const FRAME_INTERVAL_MS = 42;
+
+ const FIRST_AUTO_DELAY_MS = 3500;
+ const MIN_AUTO_DELAY_MS = 8000;
+ const MAX_AUTO_DELAY_MS = 10000;
+ const BURST_DURATION_MS = 900;
+ const FRAME_INTERVAL_MS = 42;
+
 
 // ========================================
 // PALETAS
