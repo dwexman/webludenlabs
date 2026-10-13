@@ -4,14 +4,16 @@
    MOSAICO CYBER + PNG 3D + EDITORIAL
 
    CORRECCIONES:
-   - Posicionamiento editorial: tamaño uniforme
-   - Identidad de marca editorial: alineación
-   - Hover editorial: sin efectos cyber
-   - Cyber: mosaico, imágenes y animaciones intactos
+   - Editorial mobile completamente responsive
+   - Sin columnas desplazadas
+   - Sin textos cortados
+   - Flechas correctamente alineadas
+   - Identidad y Posicionamiento corregidos
+   - Cyber conservado
 ========================================================= */
 
 /* =========================================================
-   01. SECCION
+   01. BASE
 ========================================================= */
 
 .section {
@@ -39,6 +41,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+
   background:
     radial-gradient(
       ellipse at 8% 30%,
@@ -67,6 +70,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
   color: #45a8ff;
   font-size: 10px;
   font-weight: 500;
@@ -106,6 +110,7 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
   filter: drop-shadow(0 0 16px #347bff38);
   animation: headingMetal 8s ease-in-out infinite;
 }
@@ -191,6 +196,7 @@
 
   position: relative;
   display: block;
+
   width: 100%;
   height: 100%;
   min-width: 0;
@@ -198,6 +204,7 @@
 
   margin: 0;
   padding: 0;
+
   appearance: none;
   border: 0;
   border-radius: 0;
@@ -229,12 +236,13 @@
   --delay: 4.8s;
 }
 
-/* Tarjetas moradas */
+/* Morado metalico */
 
 .card:nth-child(even) {
   --edge-a: #d08aff;
   --edge-b: #9652ff;
   --edge-c: #6935e8;
+
   --icon-glow: #aa5dff;
   --title-color: #e6d5ff;
 
@@ -298,10 +306,13 @@
 .cardInner {
   position: relative;
   z-index: 1;
+
   display: grid;
   width: 100%;
   height: 100%;
+
   transform-style: preserve-3d;
+
   transition:
     transform 0.7s cubic-bezier(
       0.22,
@@ -332,6 +343,7 @@
 
   padding: 26px 29px 23px;
   overflow: hidden;
+
   border: 0;
   border-radius: 0;
 
@@ -432,9 +444,11 @@
 .icon {
   position: relative;
   z-index: 4;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 66px;
   height: 66px;
   flex: 0 0 auto;
@@ -460,6 +474,7 @@
 .icon svg {
   position: relative;
   z-index: 1;
+
   width: 58px;
   height: 58px;
 
@@ -471,8 +486,6 @@
     transform 0.4s ease,
     filter 0.4s ease;
 }
-
-/* Iconos morados */
 
 .card:nth-child(even) .icon stop:nth-child(1),
 .card:nth-child(even) .backIcon stop:nth-child(1) {
@@ -503,12 +516,13 @@
 }
 
 /* =========================================================
-   07. TITULOS
+   07. TITULOS Y SUBTITULOS
 ========================================================= */
 
 .cardTitle {
   position: relative;
   z-index: 4;
+
   display: block;
   margin-top: 18px;
 
@@ -517,6 +531,7 @@
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.16;
+
   text-shadow: 0 0 16px #4f8cff30;
 }
 
@@ -527,6 +542,7 @@
 .subtitle {
   position: relative;
   z-index: 4;
+
   display: block;
   max-width: 245px;
   margin-top: 10px;
@@ -560,6 +576,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 34px;
   height: 34px;
   flex-shrink: 0;
@@ -591,7 +608,7 @@
 }
 
 /* =========================================================
-   09. IMAGENES PNG
+   09. IMAGENES PNG 3D
 ========================================================= */
 
 .art {
@@ -612,7 +629,9 @@
   );
 
   animation: artworkFloat 8s ease-in-out infinite;
-  transition: filter 0.45s ease;
+
+  transition:
+    filter 0.45s ease;
 }
 
 .card:hover .artImage {
@@ -779,9 +798,6 @@
 
 /* =========================================================
    15. COMPOSICION CYBER DESKTOP
-
-   Estas reglas solo se aplican a cyber.
-   Asi evitamos que modifiquen editorial.
 ========================================================= */
 
 @media (min-width: 1001px) {
@@ -812,7 +828,6 @@
 
 /* =========================================================
    16. REVERSO CYBER
-   CUADRICULA SIN HALO
 ========================================================= */
 
 .back {
@@ -1042,7 +1057,7 @@
 }
 
 /* =========================================================
-   19. TABLET
+   19. TABLET CYBER
 ========================================================= */
 
 @media (max-width: 1000px) {
@@ -1188,8 +1203,10 @@
 
   .front {
     display: grid;
+
     grid-template-columns:
       49px minmax(0, 1fr) 31px;
+
     grid-template-rows: auto auto;
     align-content: center;
     column-gap: 11px;
@@ -1220,6 +1237,7 @@
 
     margin: 0;
     max-width: none;
+
     font-size: clamp(16px, 4.2vw, 19px);
     line-height: 1.16;
   }
@@ -1239,6 +1257,7 @@
 
     margin: 0;
     max-width: none;
+
     font-size: 11px;
     line-height: 1.4;
   }
@@ -1246,7 +1265,6 @@
   .front .action {
     grid-column: 3;
     grid-row: 1 / span 2;
-
     align-self: center;
     justify-self: end;
     margin: 0;
@@ -1266,8 +1284,6 @@
   .front .actionLabel {
     display: none;
   }
-
-  /* PNG mobile */
 
   .card:nth-child(n) .art {
     top: -8%;
@@ -1336,7 +1352,7 @@
     width: 55%;
   }
 
-  /* Reverso mobile */
+  /* Reverso mobile cyber */
 
   .back {
     display: grid;
@@ -1356,8 +1372,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     grid-column: 1;
     grid-row: 1;
+
     width: 35px;
     height: 35px;
   }
@@ -1365,6 +1383,7 @@
   .backIcon svg {
     width: 32px;
     height: 32px;
+
     filter: drop-shadow(
       0 0 8px var(--icon-glow)
     );
@@ -1374,6 +1393,7 @@
     grid-column: 2;
     grid-row: 1;
     align-self: center;
+
     font-size: 14px;
     line-height: 1.25;
     letter-spacing: -0.01em;
@@ -1392,6 +1412,7 @@
   .back .actionCircle {
     width: 28px;
     height: 28px;
+
     border: none;
     background: transparent;
     box-shadow: none;
@@ -1416,6 +1437,7 @@
     color: #d2e1f7;
     font-size: 13px;
     line-height: 1.62;
+
     scrollbar-width: thin;
   }
 
@@ -1471,7 +1493,10 @@
 }
 
 /* =========================================================
-   22. VERSION EDITORIAL
+   22. EDITORIAL DESKTOP
+
+   Estas reglas se dejan al final para evitar
+   conflictos con los estilos cyber.
 ========================================================= */
 
 :global(html[data-luden-theme="editorial"]) .section {
@@ -1500,6 +1525,7 @@
   background: none;
   color: #282832;
   -webkit-text-fill-color: currentColor;
+
   filter: none;
   animation: none;
 
@@ -1538,21 +1564,12 @@
   display: none;
 }
 
-:global(html[data-luden-theme="editorial"])
-.card:hover::before,
-:global(html[data-luden-theme="editorial"])
-.card[data-flipped="true"]::before {
-  display: none;
-}
-
-/* Giro vertical */
+/* Giro editorial vertical */
 
 :global(html[data-luden-theme="editorial"])
 .card[data-flipped="true"] .cardInner {
   transform: rotateX(180deg);
 }
-
-/* Caras editoriales */
 
 :global(html[data-luden-theme="editorial"])
 .card .face {
@@ -1560,10 +1577,11 @@
 
   grid-template-columns:
     40% minmax(0, 1fr) 28px;
-  grid-template-rows: auto;
 
+  grid-template-rows: auto;
   align-items: center;
   align-content: center;
+
   gap: 24px;
 
   min-height: 108px;
@@ -1584,8 +1602,6 @@
   transform: rotateX(180deg);
   background: #e7e4dc;
 }
-
-/* Eliminar elementos cyber */
 
 :global(html[data-luden-theme="editorial"])
 .face::before,
@@ -1608,18 +1624,19 @@
   display: none;
 }
 
-/* Tipografia editorial */
+/* Titulos y descripciones */
 
 :global(html[data-luden-theme="editorial"])
-.cardTitle,
+.card .front .cardTitle,
 :global(html[data-luden-theme="editorial"])
-.backTitle {
+.card .back .backTitle {
   grid-column: 1;
   grid-row: 1;
 
   margin: 0;
-  max-width: none;
   padding: 0;
+  max-width: none;
+  min-width: 0;
 
   background: none;
   color: #282832;
@@ -1634,124 +1651,51 @@
   text-transform: none;
   text-shadow: none;
   animation: none;
+
+  text-align: left;
+  transform: none;
 }
 
 :global(html[data-luden-theme="editorial"])
-.titleLine {
+.card .titleLine {
   display: inline;
 }
 
 :global(html[data-luden-theme="editorial"])
-.subtitle,
+.card .front .subtitle,
 :global(html[data-luden-theme="editorial"])
-.description {
+.card .back .description {
   grid-column: 2;
   grid-row: 1;
 
   margin: 0;
   padding: 0;
+
   max-width: none;
+  min-width: 0;
 
   color: #63616b;
   font-size: 14px;
   line-height: 1.7;
+
+  text-align: left;
+  overflow-wrap: break-word;
+  transform: none;
 }
 
 :global(html[data-luden-theme="editorial"])
-.description {
+.card .back .description {
   color: #34313a;
 }
 
 /* =========================================================
-   23. CORRECCION IDENTIDAD DE MARCA EDITORIAL
+   23. FLECHAS EDITORIALES
 ========================================================= */
 
 :global(html[data-luden-theme="editorial"])
-.card[data-service="brand"] .cardTitle,
+.card .front .action,
 :global(html[data-luden-theme="editorial"])
-.card[data-service="brand"] .backTitle {
-  grid-column: 1;
-  grid-row: 1;
-
-  margin: 0;
-  margin-left: 0;
-  margin-top: 0;
-
-  padding: 0;
-  max-width: none;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(24px, 2.3vw, 32px);
-  font-weight: 400;
-  line-height: 1.2;
-
-  text-align: left;
-  transform: none;
-}
-
-:global(html[data-luden-theme="editorial"])
-.card[data-service="brand"] .subtitle,
-:global(html[data-luden-theme="editorial"])
-.card[data-service="brand"] .description {
-  grid-column: 2;
-  grid-row: 1;
-
-  margin: 0;
-  margin-left: 0;
-  margin-top: 0;
-
-  padding: 0;
-  max-width: none;
-
-  color: #63616b;
-  font-size: 14px;
-  line-height: 1.7;
-  text-align: left;
-  transform: none;
-}
-
-:global(html[data-luden-theme="editorial"])
-.card[data-service="brand"] .titleLine {
-  display: inline;
-}
-
-/* =========================================================
-   24. CORRECCION POSICIONAMIENTO EDITORIAL
-
-   Misma tipografia antes y despues del flip.
-   Sobrescribe el tamaño cyber de 26px.
-========================================================= */
-
-:global(html[data-luden-theme="editorial"])
-.card[data-service="positioning"] .cardTitle,
-:global(html[data-luden-theme="editorial"])
-.card[data-service="positioning"] .backTitle {
-  grid-column: 1;
-  grid-row: 1;
-
-  margin: 0;
-  padding: 0;
-  max-width: none;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(24px, 2.3vw, 32px);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.035em;
-
-  color: #282832;
-  -webkit-text-fill-color: currentColor;
-  text-transform: none;
-  text-shadow: none;
-  transform: none;
-}
-
-/* =========================================================
-   25. FLECHAS EDITORIALES
-========================================================= */
-
-:global(html[data-luden-theme="editorial"])
-.action {
+.card .back .action {
   grid-column: 3;
   grid-row: 1;
 
@@ -1761,15 +1705,12 @@
   width: auto;
   margin: 0;
   padding: 0;
+
   color: #55465e;
 }
 
 :global(html[data-luden-theme="editorial"])
-.actionCircle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+.card .actionCircle {
   width: 30px;
   height: 30px;
 
@@ -1782,23 +1723,17 @@
   transform: none;
 
   transition:
-    transform 0.25s ease,
-    color 0.25s ease;
-}
-
-:global(html[data-luden-theme="editorial"])
-.actionCircle svg {
-  width: 22px;
-  height: 22px;
-  color: #55465e;
-  filter: none;
-
-  transition:
     color 0.25s ease,
     transform 0.25s ease;
 }
 
-/* Hover editorial sin glow */
+:global(html[data-luden-theme="editorial"])
+.card .actionCircle svg {
+  width: 22px;
+  height: 22px;
+  color: #55465e;
+  filter: none;
+}
 
 :global(html[data-luden-theme="editorial"])
 .card:hover .actionCircle {
@@ -1814,7 +1749,6 @@
 .card:hover .actionCircle svg {
   color: #796184;
   transform: translateX(4px);
-  filter: none;
 }
 
 :global(html[data-luden-theme="editorial"])
@@ -1825,12 +1759,6 @@
 :global(html[data-luden-theme="editorial"])
 .card:hover .back {
   background: #e7e4dc;
-}
-
-:global(html[data-luden-theme="editorial"])
-.card:hover {
-  box-shadow: none;
-  filter: none;
 }
 
 :global(html[data-luden-theme="editorial"])
@@ -1854,109 +1782,383 @@
 }
 
 /* =========================================================
-   26. EDITORIAL MOBILE
+   24. EDITORIAL MOBILE - CORRECCION DEFINITIVA
+
+   Evita que los estilos de las cards cyber
+   empujen los textos a la derecha.
 ========================================================= */
 
 @media (max-width: 680px) {
+
+  /* Contenedor */
+
+  :global(html[data-luden-theme="editorial"])
+  .section {
+    padding: 64px 0 105px;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .container {
+    width: calc(100% - 36px);
+    max-width: 100%;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .headingRow {
+    margin-bottom: 30px;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .heading {
+    font-size: clamp(38px, 9vw, 48px);
+    line-height: 1.1;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .intro {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* Lista: una fila por servicio */
+
+  :global(html[data-luden-theme="editorial"])
+  .grid {
+    display: block;
+    width: 100%;
+    border-top: 1px solid #c8c4be;
+  }
+
+  /* Eliminar alturas heredadas de cyber */
+
   :global(html[data-luden-theme="editorial"])
   .card:nth-child(n) {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
     height: auto;
-    min-height: 150px;
+    min-height: 0;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
+
+  :global(html[data-luden-theme="editorial"])
+  .card .cardInner {
+    display: grid;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+  }
+
+  /* Dos columnas:
+     contenido + flecha */
 
   :global(html[data-luden-theme="editorial"])
   .card .face {
+    display: grid;
+
     grid-template-columns:
-      minmax(0, 1fr) 28px;
+      minmax(0, 1fr)
+      28px;
 
-    grid-template-rows: auto auto;
-    min-height: 150px;
+    grid-template-rows:
+      auto
+      auto;
 
-    gap: 10px 14px;
-    padding: 23px 4px;
+    column-gap: 12px;
+    row-gap: 8px;
+
+    align-items: center;
+    align-content: center;
+
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 154px;
+
+    padding: 25px 4px;
+
+    border: 0;
+    border-bottom: 1px solid #c8c4be;
+    border-radius: 0;
+    clip-path: none;
+
+    box-shadow: none;
   }
 
+  /* Ambos titulos:
+     siempre arriba a la izquierda */
+
   :global(html[data-luden-theme="editorial"])
-  .cardTitle,
+  .card .front .cardTitle,
   :global(html[data-luden-theme="editorial"])
-  .backTitle {
+  .card .back .backTitle {
     grid-column: 1;
     grid-row: 1;
-    font-size: 27px;
+
+    display: block;
+    align-self: end;
+    justify-self: stretch;
+
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(23px, 6.1vw, 29px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+
+    color: #282832;
+    -webkit-text-fill-color: currentColor;
+
+    text-transform: none;
+    text-shadow: none;
+
+    text-align: left;
+    transform: none;
+    animation: none;
   }
 
+  /* Las lineas de los titulos no obligan
+     a crear columnas nuevas */
+
   :global(html[data-luden-theme="editorial"])
-  .subtitle,
+  .card .front .titleLine {
+    display: inline;
+  }
+
+  /* Descripciones:
+     siempre debajo del titulo */
+
   :global(html[data-luden-theme="editorial"])
-  .description {
+  .card .front .subtitle,
+  :global(html[data-luden-theme="editorial"])
+  .card .back .description {
     grid-column: 1;
     grid-row: 2;
 
-    max-width: none;
+    display: block;
+    align-self: start;
+    justify-self: stretch;
+
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    color: #68656d;
     font-size: 13px;
+    font-weight: 400;
+    line-height: 1.65;
+
+    text-align: left;
+
+    white-space: normal;
     overflow: visible;
-  }
+    overflow-wrap: break-word;
 
-  /* Identidad mobile */
-
-  :global(html[data-luden-theme="editorial"])
-  .card[data-service="brand"] .cardTitle,
-  :global(html[data-luden-theme="editorial"])
-  .card[data-service="brand"] .backTitle {
-    grid-column: 1;
-    grid-row: 1;
-
-    margin: 0;
-    font-size: 27px;
+    transform: none;
   }
 
   :global(html[data-luden-theme="editorial"])
-  .card[data-service="brand"] .subtitle,
-  :global(html[data-luden-theme="editorial"])
-  .card[data-service="brand"] .description {
-    grid-column: 1;
-    grid-row: 2;
-
-    margin: 0;
-    max-width: none;
-    font-size: 13px;
+  .card .back .description {
+    color: #34313a;
   }
 
-  /* Posicionamiento mobile:
-     misma medida en las dos caras */
+  /* Flecha:
+     columna derecha, centrada verticalmente */
 
   :global(html[data-luden-theme="editorial"])
-  .card[data-service="positioning"] .cardTitle,
+  .card .front .action,
   :global(html[data-luden-theme="editorial"])
-  .card[data-service="positioning"] .backTitle {
-    grid-column: 1;
-    grid-row: 1;
-
-    margin: 0;
-    font-size: 27px;
-  }
-
-  /* Flechas mobile */
-
-  :global(html[data-luden-theme="editorial"])
-  .action {
+  .card .back .action {
     grid-column: 2;
     grid-row: 1 / span 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    align-self: center;
+    justify-self: center;
+
+    width: 28px;
+    min-width: 28px;
+
+    margin: 0;
+    padding: 0;
+
+    color: #55465e;
   }
 
   :global(html[data-luden-theme="editorial"])
-  .closeArrow {
+  .card .actionCircle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    border-radius: 0;
+
+    background: transparent;
+    box-shadow: none;
+    filter: none;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .card .actionCircle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Eliminar icono de cerrar cyber
+     y conservar la flecha de volver */
+
+  :global(html[data-luden-theme="editorial"])
+  .card .closeArrow {
     display: none;
   }
 
   :global(html[data-luden-theme="editorial"])
-  .backArrow {
+  .card .backArrow {
     display: flex;
+  }
+
+  /* No trasladar efectos cyber al editorial */
+
+  :global(html[data-luden-theme="editorial"])
+  .card:hover .actionCircle {
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .card:hover .actionCircle svg {
+    transform: translateX(3px);
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .card .art,
+  :global(html[data-luden-theme="editorial"])
+  .card .icon,
+  :global(html[data-luden-theme="editorial"])
+  .card .backIcon,
+  :global(html[data-luden-theme="editorial"])
+  .card .beam {
+    display: none;
+  }
+
+  /* Footer */
+
+  :global(html[data-luden-theme="editorial"])
+  .footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    font-size: 10px;
   }
 }
 
 /* =========================================================
-   27. ACCESIBILIDAD
+   25. MOBILE MUY PEQUEÑO
+========================================================= */
+
+@media (max-width: 370px) {
+
+  /* CYBER */
+
+  .container {
+    width: calc(100% - 28px);
+  }
+
+  .front {
+    grid-template-columns:
+      43px minmax(0, 1fr) 28px;
+
+    column-gap: 9px;
+    padding: 12px;
+  }
+
+  .front .icon {
+    width: 43px;
+    height: 43px;
+  }
+
+  .front .icon svg {
+    width: 37px;
+    height: 37px;
+  }
+
+  .front .cardTitle {
+    font-size: 15px;
+  }
+
+  .front .subtitle {
+    font-size: 10px;
+  }
+
+  .card[data-flipped="true"] {
+    height: 270px;
+  }
+
+  /* EDITORIAL */
+
+  :global(html[data-luden-theme="editorial"])
+  .container {
+    width: calc(100% - 28px);
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .card:nth-child(n) {
+    height: auto;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .card .face {
+    min-height: 148px;
+    padding: 22px 3px;
+    column-gap: 10px;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .card .front .cardTitle,
+  :global(html[data-luden-theme="editorial"])
+  .card .back .backTitle {
+    font-size: 23px;
+  }
+
+  :global(html[data-luden-theme="editorial"])
+  .card .front .subtitle,
+  :global(html[data-luden-theme="editorial"])
+  .card .back .description {
+    font-size: 12px;
+  }
+}
+
+/* =========================================================
+   26. ACCESIBILIDAD
 ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
