@@ -1,4 +1,3 @@
-
 "use client";
 
 import {
@@ -12,6 +11,7 @@ import CyberProjectsStage, {
   type Project,
 } from "./CyberProjectsStage";
 import styles from "./Projects.module.css";
+import motion from "./ProjectsMotion.module.css";
 
 // =============================================
 // PROYECTOS DESTACADOS — DATOS PROVISIONALES
@@ -199,6 +199,7 @@ export default function Projects() {
   const [currentProject, setCurrentProject] = useState(0);
   const [selectedProject, setSelectedProject] =
     useState<Project | null>(null);
+
   const [sliderIndex, setSliderIndex] = useState(0);
   const [sliderAtEnd, setSliderAtEnd] = useState(false);
 
@@ -206,7 +207,156 @@ export default function Projects() {
   const editorialRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
+  const projectListRef = useRef<HTMLDivElement>(null);
+  const detailRef = useRef<HTMLDivElement>(null);
+  const projectButtons = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const [mobileEditorial, setMobileEditorial] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(true);
+  const [pageVisible, setPageVisible] = useState(true);
+  const [detailVisible, setDetailVisible] = useState(false);
+  const [autoplay, setAutoplay] = useState(true);
+
   const current = featuredProjects[currentProject];
+
+  const playing =
+    mobileEditorial &&
+    autoplay &&
+    !reducedMotion &&
+    pageVisible &&
+    detailVisible &&
+    !selectedProject;
+
+  // Detectar el diseño editorial móvil y las preferencias de movimiento.
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 800px)");
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    function sync() {
+      setMobileEditorial(
+        mobile.matches &&
+          document.documentElement.dataset.ludenTheme === "editorial"
+      );
+      setReducedMotion(reduced.matches);
+      setPageVisible(!document.hidden);
+    }
+
+    const observer = new MutationObserver(sync);
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-luden-theme"],
+    });
+
+    mobile.addEventListener("change", sync);
+    reduced.addEventListener("change", sync);
+    document.addEventListener("visibilitychange", sync);
+
+    sync();
+
+    return () => {
+      observer.disconnect();
+      mobile.removeEventListener("change", sync);
+      reduced.removeEventListener("change", sync);
+      document.removeEventListener("visibilitychange", sync);
+    };
+  }, []);
+
+  // El automático funciona mientras el detalle está visible.
+  useEffect(() => {
+    const detail = detailRef.current;
+
+    if (!mobileEditorial || !detail) {
+      setDetailVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setDetailVisible(
+          entry.isIntersecting && entry.intersectionRatio >= 0.2
+        );
+      },
+      { threshold: [0, 0.2] }
+    );
+
+    observer.observe(detail);
+
+    return () => observer.disconnect();
+  }, [mobileEditorial, current.id]);
+
+  // Precargar las imágenes de los proyectos destacados.
+  useEffect(() => {
+    if (!mobileEditorial) return;
+
+    featuredProjects.forEach((project) => {
+      const image = new Image();
+      image.src = project.image;
+    });
+  }, [mobileEditorial]);
+
+  // ALBA → Imperio Fit → FluYe → Rebound & Rise → ALBA.
+  useEffect(() => {
+    if (!playing) return;
+
+    const timer = window.setTimeout(() => {
+      setCurrentProject(
+        (index) => (index + 1) % featuredProjects.length
+      );
+    }, 4000);
+
+    return () => window.clearTimeout(timer);
+  }, [playing, currentProject]);
+
+  // Mantener visible el nombre seleccionado dentro de la fila.
+  useEffect(() => {
+    if (!mobileEditorial) return;
+
+    const frame = requestAnimationFrame(() => {
+      const list = projectListRef.current;
+      const button = projectButtons.current[currentProject];
+
+      if (!list || !button) return;
+
+      const viewport = list.getBoundingClientRect();
+      const item = button.getBoundingClientRect();
+
+      const left = viewport.left + 4;
+      const right = viewport.right - 4;
+      let delta = 0;
+
+      if (item.left < left) {
+        delta = item.left - left;
+      } else if (item.right > right) {
+        delta = item.right - right;
+      }
+
+      if (Math.abs(delta) > 1) {
+        list.scrollTo({
+          left: list.scrollLeft + delta,
+          behavior: reducedMotion ? "auto" : "smooth",
+        });
+      }
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [currentProject, mobileEditorial, reducedMotion]);
+
+  function pauseEditorial() {
+    if (mobileEditorial) setAutoplay(false);
+  }
+
+  function selectProject(index: number) {
+    pauseEditorial();
+    setCurrentProject(index);
+  }
+
+  function openProject(project: Project) {
+    pauseEditorial();
+    setSelectedProject(project);
+  }
 
   useEffect(() => {
     if (!selectedProject) return;
@@ -235,16 +385,14 @@ export default function Projects() {
       if (!el) return;
 
       setSliderAtEnd(
-        el.scrollLeft + el.clientWidth >=
-          el.scrollWidth - 3
+        el.scrollLeft + el.clientWidth >= el.scrollWidth - 3
       );
     };
 
     checkEnd();
     window.addEventListener("resize", checkEnd);
 
-    return () =>
-      window.removeEventListener("resize", checkEnd);
+    return () => window.removeEventListener("resize", checkEnd);
   }, []);
 
   function scrollToSlide(index: number) {
@@ -294,17 +442,14 @@ export default function Projects() {
     });
 
     setSliderIndex(nearest);
-
     setSliderAtEnd(
-      slider.scrollLeft + slider.clientWidth >=
-        slider.scrollWidth - 3
+      slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 3
     );
   }
 
   function explore() {
     const editorial =
-      document.documentElement.dataset.ludenTheme ===
-      "editorial";
+      document.documentElement.dataset.ludenTheme === "editorial";
 
     if (editorial) {
       editorialRef.current?.scrollIntoView({
@@ -312,12 +457,10 @@ export default function Projects() {
         block: "start",
       });
     } else {
-      document
-        .getElementById("proyectos-cyber")
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      document.getElementById("proyectos-cyber")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
   }
 
@@ -331,7 +474,6 @@ export default function Projects() {
 
       <div className={styles.container}>
         {/* INTRO CYBER */}
-
         <div className={styles.cyberIntro}>
           <div className={styles.cyberIntroMain}>
             <span className={styles.eyebrow}>
@@ -395,7 +537,6 @@ export default function Projects() {
         </div>
 
         {/* INTRO EDITORIAL */}
-
         <div className={styles.editorialIntro}>
           <div>
             <span className={styles.editorialEyebrow}>
@@ -422,14 +563,16 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* EDITORIAL: SHOWCASE + CARRUSEL JUNTOS */}
-
+        {/* PROYECTOS EDITORIALES */}
         <div
           className={styles.editorialShowcase}
           ref={editorialRef}
         >
           <div
-            className={styles.editorialList}
+            className={`${styles.editorialList} ${motion.list}`}
+            ref={projectListRef}
+            onPointerDown={pauseEditorial}
+            onWheel={pauseEditorial}
             role="group"
             aria-label="Seleccionar proyecto"
           >
@@ -437,13 +580,15 @@ export default function Projects() {
               <button
                 type="button"
                 key={project.id}
-                className={`${styles.editorialListItem} ${
-                  index === currentProject
-                    ? styles.isSelected
-                    : ""
+                ref={(node) => {
+                  projectButtons.current[index] = node;
+                }}
+                onFocus={pauseEditorial}
+                className={`${styles.editorialListItem} ${motion.listItem} ${
+                  index === currentProject ? styles.isSelected : ""
                 }`}
                 aria-pressed={index === currentProject}
-                onClick={() => setCurrentProject(index)}
+                onClick={() => selectProject(index)}
               >
                 <span className={styles.editorialNumber}>
                   {String(index + 1).padStart(2, "0")}
@@ -469,24 +614,84 @@ export default function Projects() {
             </p>
           </div>
 
+          {/* CONTROLES VISIBLES EN EDITORIAL MÓVIL */}
+          <div className={motion.controls}>
+            <div className={motion.hint}>
+              <span aria-hidden="true">↔</span>
+              <span>Desliza para ver los 4 proyectos</span>
+            </div>
+
+            {!reducedMotion && (
+              <button
+                type="button"
+                className={motion.playButton}
+                onClick={() => setAutoplay((value) => !value)}
+                aria-label={
+                  autoplay
+                    ? "Pausar cambio automático"
+                    : "Reanudar cambio automático"
+                }
+              >
+                <span aria-hidden="true">
+                  {autoplay ? "Ⅱ" : "▷"}
+                </span>
+                {autoplay ? "Pausar" : "Reanudar"}
+              </button>
+            )}
+
+            <div className={motion.progressRow}>
+              <span className={motion.counter}>
+                {String(currentProject + 1).padStart(2, "0")} / 04
+              </span>
+
+              <div
+                className={motion.indicators}
+                role="group"
+                aria-label="Elegir proyecto destacado"
+              >
+                {featuredProjects.map((project, index) => (
+                  <button
+                    key={project.id}
+                    type="button"
+                    className={motion.indicator}
+                    onClick={() => selectProject(index)}
+                    aria-label={`Mostrar ${project.name}`}
+                    aria-pressed={index === currentProject}
+                  >
+                    <span className={motion.track} aria-hidden="true">
+                      {index === currentProject && (
+                        <span
+                          key={`${current.id}-${playing}`}
+                          className={`${motion.fill} ${
+                            playing ? motion.running : ""
+                          }`}
+                        />
+                      )}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* El cambio de key reinicia el fade del detalle. */}
           <div
-            className={styles.editorialDetail}
+            ref={detailRef}
+            className={`${styles.editorialDetail} ${motion.detail}`}
             key={current.id}
+            onPointerDown={pauseEditorial}
+            onFocusCapture={pauseEditorial}
           >
             <button
               type="button"
               className={styles.editorialHero}
               style={imageStyle(current)}
-              onClick={() => setSelectedProject(current)}
+              onClick={() => openProject(current)}
               aria-label={`Ver proyecto ${current.name}`}
             >
               <span className={styles.editorialHeroTop}>
                 <span>
-                  {String(currentProject + 1).padStart(
-                    2,
-                    "0"
-                  )}{" "}
-                  / 04
+                  {String(currentProject + 1).padStart(2, "0")} / 04
                 </span>
                 <span>{current.category}</span>
               </span>
@@ -523,7 +728,7 @@ export default function Projects() {
 
               <button
                 type="button"
-                onClick={() => setSelectedProject(current)}
+                onClick={() => openProject(current)}
               >
                 VER PROYECTO{" "}
                 <span aria-hidden="true">→</span>
@@ -541,8 +746,7 @@ export default function Projects() {
               <div
                 style={imageStyle(
                   otherProjects[
-                    (currentProject + 2) %
-                      otherProjects.length
+                    (currentProject + 2) % otherProjects.length
                   ]
                 )}
               >
@@ -552,8 +756,7 @@ export default function Projects() {
               <div
                 style={imageStyle(
                   otherProjects[
-                    (currentProject + 4) %
-                      otherProjects.length
+                    (currentProject + 4) % otherProjects.length
                   ]
                 )}
               >
@@ -562,8 +765,7 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* ESTE CARRUSEL PERTENECE SOLO AL EDITORIAL */}
-
+          {/* OTROS PROYECTOS EDITORIALES */}
           <div
             className={styles.moreProjects}
             style={{ gridColumn: "1 / -1" }}
@@ -579,9 +781,7 @@ export default function Projects() {
                 </h3>
               </div>
 
-              <p>
-                MÁS IDEAS. MÁS MARCAS. MÁS EXPERIENCIAS.
-              </p>
+              <p>MÁS IDEAS. MÁS MARCAS. MÁS EXPERIENCIAS.</p>
 
               <span className={styles.moreHint}>
                 Explora otros trabajos de nuestro laboratorio
@@ -594,9 +794,7 @@ export default function Projects() {
                 type="button"
                 className={styles.sliderArrow}
                 aria-label="Ver proyectos anteriores"
-                onClick={() =>
-                  scrollToSlide(sliderIndex - 1)
-                }
+                onClick={() => scrollToSlide(sliderIndex - 1)}
                 disabled={sliderIndex === 0}
               >
                 ←
@@ -615,9 +813,7 @@ export default function Projects() {
                     className={styles.miniCard}
                     style={imageStyle(project)}
                     key={project.id}
-                    onClick={() =>
-                      setSelectedProject(project)
-                    }
+                    onClick={() => openProject(project)}
                     aria-label={`Ver proyecto ${project.name}`}
                   >
                     <span
@@ -652,9 +848,7 @@ export default function Projects() {
                 type="button"
                 className={styles.sliderArrow}
                 aria-label="Ver proyectos siguientes"
-                onClick={() =>
-                  scrollToSlide(sliderIndex + 1)
-                }
+                onClick={() => scrollToSlide(sliderIndex + 1)}
                 disabled={sliderAtEnd}
               >
                 →
@@ -681,38 +875,27 @@ export default function Projects() {
                   onClick={() => scrollToSlide(index)}
                   aria-label={`Ir a ${project.name}`}
                   aria-current={
-                    index === sliderIndex
-                      ? "true"
-                      : undefined
+                    index === sliderIndex ? "true" : undefined
                   }
                 />
               ))}
 
               <span>
-                {String(otherProjects.length).padStart(
-                  2,
-                  "0"
-                )}
+                {String(otherProjects.length).padStart(2, "0")}
               </span>
             </div>
           </div>
         </div>
 
-        {/* CYBER: SU PROPIO SHOWCASE Y SU PROPIO SLIDER */}
-
+        {/* PROYECTOS CYBER */}
         <CyberProjectsStage
           featured={featuredProjects}
           others={otherProjects}
-          onOpen={setSelectedProject}
+          onOpen={openProject}
         />
 
-        <div
-          className={styles.bottomLine}
-          aria-hidden="true"
-        >
-          <span>
-            LUDEN LABS / DIGITAL CREATION STUDIO
-          </span>
+        <div className={styles.bottomLine} aria-hidden="true">
+          <span>LUDEN LABS / DIGITAL CREATION STUDIO</span>
           <span>EXPERIMENT. BUILD. EVOLVE.</span>
           <span>IDEAS · PERSONAS · IMPACTO</span>
         </div>
